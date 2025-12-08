@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>SSE Test</title>
+</head>
+<body>
+<h3>SSE Test</h3>
+<button id="btn">Send message</button>
+<pre id="log"></pre>
+
+<script>
+const log = (msg) => {
+  document.getElementById("log").textContent += msg + "\n";
+};
+
+// SSE サーバに接続
+const es = new EventSource("http://localhost:3002/events");
+
+es.onopen = () => {
+  log("connected");
+};
+
+es.onmessage = (ev) => {
+  log("received: " + ev.data);
+};
+
+es.onerror = (err) => {
+  log("error: " + JSON.stringify(err));
+};
+
+// ボタン押下でメッセージ送信
+document.getElementById("btn").onclick = async () => {
+  log("sending...");
+  await fetch("http://localhost:3002/send", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: "hello from SSE client" })
+  });
+  log("sent");
+};
+</script>
+</body>
+</html>

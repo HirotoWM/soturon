@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Polling Test</title>
+</head>
+<body>
+<h3>Polling Test</h3>
+<button id="btn">Send message</button>
+<pre id="log"></pre>
+
+<script>
+const log = (msg) => {
+  document.getElementById("log").textContent += msg + "\n";
+};
+
+// Long Polling でサーバに問い合わせ続ける
+async function startPolling() {
+  while (true) {
+    try {
+      const res = await fetch("http://localhost:3003/poll");
+      const data = await res.json();
+
+      if (!data.timeout && data.message) {
+        log("received: " + data.message);
+      } else {
+        log("poll timeout");
+      }
+    } catch (e) {
+      log("error: " + e);
+      // エラー時は少し待つ
+      await new Promise(r => setTimeout(r, 3000));
+    }
+  }
+}
+
+// 最初の1回だけ開始
+startPolling();
+
+// ボタン押下でメッセージ送信
+document.getElementById("btn").onclick = async () => {
+  log("sending...");
+  await fetch("http://localhost:3003/send", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: "hello from polling client" })
+  });
+  log("sent");
+};
+</script>
+</body>
+</html>

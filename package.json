@@ -1,0 +1,19 @@
+{
+  "name": "soturon-realtime-compare",
+  "version": "1.0.0",
+  "description": "Comparison of WebSocket, SSE, and HTTP Long Polling for realtime communication",
+  "main": "index.js",
+  "scripts": {
+    "base": "node src/base/server_base.js",
+    "ws": "node src/ws/ws_server.js",
+    "sse": "node src/sse/sse_server.js",
+    "polling": "node src/polling/polling_server.js"
+  },
+  "author": "Hiroto Seki",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "express": "^4.21.2",
+    "ws": "^8.18.0"
+  }
+}

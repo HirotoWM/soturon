@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>WebSocket Test</title>
+</head>
+<body>
+<h3>WebSocket Test</h3>
+<button id="btn">Send message</button>
+<pre id="log"></pre>
+
+<script>
+const log = (msg) => {
+  document.getElementById("log").textContent += msg + "\n";
+};
+
+const ws = new WebSocket("ws://localhost:3001");
+
+ws.onopen = () => {
+  log("connected");
+};
+
+ws.onmessage = (ev) => {
+  log("received: " + ev.data);
+};
+
+ws.onerror = (err) => {
+  log("error: " + err);
+};
+
+document.getElementById("btn").onclick = () => {
+  ws.send("hello from client");
+  log("sent hello");
+};
+</script>
+</body>
+</html>
