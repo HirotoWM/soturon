@@ -6,9 +6,10 @@ export const sse_latency = new Trend("sse_latency");
 
 // 負荷プロファイル（まずは軽め）
 export const options = {
-  vus: 100,
-  duration: "30s",
+  vus: __ENV.VUS ? Number(__ENV.VUS) : 100,
+  duration: __ENV.DURATION || "30s",
 };
+
 
 export default function () {
   const url = "http://localhost:3002/events"; // SSE サーバのURL

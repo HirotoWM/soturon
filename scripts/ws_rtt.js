@@ -7,9 +7,10 @@ export const ws_rtt = new Trend("ws_rtt");
 
 // ▼ 負荷条件
 export const options = {
-  vus: 100,
-  duration: "30s",
+  vus: __ENV.VUS ? Number(__ENV.VUS) : 100,
+  duration: __ENV.DURATION || "30s",
 };
+
 
 export default function () {
   const url = "ws://localhost:3001";

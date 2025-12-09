@@ -8,9 +8,10 @@ export const polling_rtt = new Trend("polling_rtt");
 
 // 負荷プロファイル（まずは軽め）
 export const options = {
-  vus: 100,
-  duration: "30s",
+  vus: __ENV.VUS ? Number(__ENV.VUS) : 100,
+  duration: __ENV.DURATION || "30s",
 };
+
 
 export default function () {
   const url = "http://localhost:3003/poll"; // ポート番号はサーバ側と合わせる
