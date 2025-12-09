@@ -7,8 +7,8 @@ export const ws_rtt = new Trend("ws_rtt");
 
 // ▼ 負荷条件
 export const options = {
-  vus: 10,
-  duration: "15s",
+  vus: 100,
+  duration: "30s",
 };
 
 export default function () {

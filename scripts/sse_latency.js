@@ -6,8 +6,8 @@ export const sse_latency = new Trend("sse_latency");
 
 // 負荷プロファイル（まずは軽め）
 export const options = {
-  vus: 10,
-  duration: "15s",
+  vus: 100,
+  duration: "30s",
 };
 
 export default function () {
